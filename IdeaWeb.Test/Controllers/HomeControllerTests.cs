@@ -1,5 +1,4 @@
-﻿using System;
-using IdeaWeb.Controllers;
+﻿using IdeaWeb.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 
