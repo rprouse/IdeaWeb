@@ -1,12 +1,13 @@
-﻿@{
+﻿@model IEnumerable<IdeaWeb.Models.Idea>
+
+@{
     ViewData["Title"] = "Home";
 }
 
 <h2>Ideas</h2>
 <ul>
-  <li>Idea 1</li>
-  <li>Idea 2</li>
-  <li>Idea 3</li>
-  <li>Idea 4</li>
-  <li>Idea 5</li>
+@foreach (var item in Model)
+{
+  <li>@Html.DisplayFor(modelItem => item.Name)</li>
+}
 </ul>

@@ -24,7 +24,7 @@ namespace IdeaWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<IdeaContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultContext")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddMvc();
         }
