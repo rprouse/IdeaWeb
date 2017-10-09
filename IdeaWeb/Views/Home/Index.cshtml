@@ -8,6 +8,15 @@
 <ul>
 @foreach (var item in Model)
 {
-  <li>@Html.DisplayFor(modelItem => item.Name)</li>
+  <li>
+    @Html.DisplayFor(modelItem => item.Name)
+    <a asp-action="Edit" asp-controller="Ideas" asp-route-id="@item.Id">[Edit]</a> |
+    <a asp-action="Details" asp-controller="Ideas" asp-route-id="@item.Id">[Details]</a> |
+    <a asp-action="Delete" asp-controller="Ideas" asp-route-id="@item.Id">[Delete]</a>
+  </li>
 }
 </ul>
+
+<p>
+  <a asp-action="Create" asp-controller="Ideas">Create New</a>
+</p>
