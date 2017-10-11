@@ -105,7 +105,7 @@ namespace IdeaWeb.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(Details), new { idea.Id } );
             }
             return View(idea);
         }
