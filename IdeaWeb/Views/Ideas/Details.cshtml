@@ -4,32 +4,24 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Details</h2>
-
+<h2>@Model.Name</h2>
+@if (Model.Rating.HasValue)
+{
+<h4>
+  @for (int i = 0; i < Model.Rating; i++)
+  {
+    <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+  }
+</h4>
+}
+<p>
+  @Model.Description
+</p>
 <div>
-    <h4>Idea</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+  <a asp-action="Edit" asp-controller="Ideas" asp-route-id="@Model.Id" class="btn btn-primary">
+    Edit
+  </a>
+  <a asp-action="Delete" asp-controller="Ideas" asp-route-id="@Model.Id" class="btn btn-default">
+    Delete
+  </a>
 </div>
