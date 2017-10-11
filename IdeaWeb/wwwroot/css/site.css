@@ -1,11 +1,33 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+body {
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
+
+ul.idea {
+  list-style-type: none;
+}
+
+  ul.idea li {
+    display: block;
+  }
+
+  ul.idea a {
+    text-decoration-line: none;
+  }
+
+  .rating {
+  }
+
+  .name {
+    color: rgb(51,51,51);
+    font-size: 24px;
+    display:inline-block;
+    padding: 0 0 0 10px;
+  }
