@@ -110,11 +110,12 @@ namespace IdeaWeb.Test.Controllers
                 Description = "Persist an idea",
                 Rating = 1
             };
+            _controller.ModelState.AddModelError("TestError", "TestError");
             await _controller.Create(idea);
 
             // Ensure the idea is not in the database
             var ideas = await _context.Ideas.ToListAsync();
-            Assert.That(ideas, Has.Count.EqualTo(NUM_IDEAS + 1));
+            Assert.That(ideas, Has.Count.EqualTo(NUM_IDEAS));
             Assert.That(ideas, Has.None.EqualTo(idea).Using(new IdeaEqualityComparer()));
         }
 
@@ -126,6 +127,7 @@ namespace IdeaWeb.Test.Controllers
                 Description = "Persist an idea",
                 Rating = 1
             };
+            _controller.ModelState.AddModelError("TestError", "TestError");
             var result = await _controller.Create(idea) as ViewResult;
 
             Assert.That(result?.Model, Is.Not.Null);
