@@ -45,7 +45,7 @@ namespace IdeaWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Rating")] Idea idea)
+        public async Task<IActionResult> Create([Bind("Name,Description,Rating")] Idea idea)
         {
             if (ModelState.IsValid)
             {
