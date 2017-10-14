@@ -1,7 +1,12 @@
-﻿using System.Net.Http;
+﻿using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
+using IdeaWeb.Data;
+using IdeaWeb.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.PlatformAbstractions;
 using NUnit.Framework;
 
 namespace IdeaWeb.Integration.Tests.Controllers
@@ -16,10 +21,29 @@ namespace IdeaWeb.Integration.Tests.Controllers
         public void OneTimeSetup()
         {
             _server = new TestServer(new WebHostBuilder()
-                .UseStartup<Startup>());
+                .UseContentRoot(CalculateRelativeContentRootPath())
+                .UseEnvironment("Development")
+                .UseStartup<TestStartup>());
 
             _client = _server.CreateClient();
+
+            var context = _server.Host.Services.GetService<IdeaContext>();
+
+            for (int i = 1; i <= 10; i++)
+            {
+                context.Add(new Idea
+                {
+                    Name = $"Idea name {i}",
+                    Description = $"Description {i}",
+                    Rating = i % 3 + 1
+                });
+            }
+            context.SaveChanges();
         }
+
+        string CalculateRelativeContentRootPath() =>
+            Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
+            @"..\..\..\..\IdeaWeb");
 
         [Test]
         public async Task HomePageContainsIdeas()
@@ -29,7 +53,7 @@ namespace IdeaWeb.Integration.Tests.Controllers
 
             var content = await response.Content.ReadAsStringAsync();
 
-            Assert.That(response, Does.Contain("<span class=\"name\">"));
+            Assert.That(content, Does.Contain("<span class=\"name\">"));
         }
     }
 }
