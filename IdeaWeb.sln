@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaWeb", "IdeaWeb\IdeaWeb.csproj", "{DDD859DA-2816-44E4-A6B1-D83271B62905}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaWeb", "IdeaWeb\IdeaWeb.csproj", "{DDD859DA-2816-44E4-A6B1-D83271B62905}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaWeb.Test", "IdeaWeb.Test\IdeaWeb.Test.csproj", "{EDEE7DC7-A440-4957-A214-85C6B725277B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdeaWeb.Test", "IdeaWeb.Test\IdeaWeb.Test.csproj", "{EDEE7DC7-A440-4957-A214-85C6B725277B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdeaWeb.Integration.Tests", "IdeaWeb.Integration.Tests\IdeaWeb.Integration.Tests.csproj", "{FF196210-B8AB-461A-8834-8FF1FB25DED6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{EDEE7DC7-A440-4957-A214-85C6B725277B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDEE7DC7-A440-4957-A214-85C6B725277B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDEE7DC7-A440-4957-A214-85C6B725277B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF196210-B8AB-461A-8834-8FF1FB25DED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF196210-B8AB-461A-8834-8FF1FB25DED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF196210-B8AB-461A-8834-8FF1FB25DED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF196210-B8AB-461A-8834-8FF1FB25DED6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
