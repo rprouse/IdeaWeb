@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
 using IdeaWeb.Data;
 using IdeaWeb.Models;
 using Microsoft.AspNetCore.Hosting;
@@ -14,20 +16,26 @@ namespace IdeaWeb.Integration.Tests.Controllers
     [TestFixture]
     public class HomeControllerTests
     {
-        TestServer _server;
         HttpClient _client;
 
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
-            _server = new TestServer(new WebHostBuilder()
+            var webHostBuilder = new WebHostBuilder()
                 .UseContentRoot(CalculateRelativeContentRootPath())
                 .UseEnvironment("Development")
-                .UseStartup<TestStartup>());
+                .UseStartup<TestStartup>();
 
-            _client = _server.CreateClient();
+            var server = new TestServer(webHostBuilder);
 
-            var context = _server.Host.Services.GetService<IdeaContext>();
+            _client = server.CreateClient();
+
+            SeedDatabase(server);
+        }
+
+        private static void SeedDatabase(TestServer server)
+        {
+            var context = server.Host.Services.GetService<IdeaContext>();
 
             for (int i = 1; i <= 10; i++)
             {
@@ -41,6 +49,10 @@ namespace IdeaWeb.Integration.Tests.Controllers
             context.SaveChanges();
         }
 
+        /// <summary>
+        /// With MVC, we need to set the content root to the project being tested
+        /// so that the Razor views can be found
+        /// </summary>
         string CalculateRelativeContentRootPath() =>
             Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
             @"..\..\..\..\IdeaWeb");
@@ -51,9 +63,16 @@ namespace IdeaWeb.Integration.Tests.Controllers
             var response = await _client.GetAsync("/");
             response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
+            var html = await response.Content.ReadAsStringAsync();
 
-            Assert.That(content, Does.Contain("<span class=\"name\">"));
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            var ideas = doc.DocumentNode
+                           .Descendants("span")
+                           .Where(s => s.Attributes["class"].Value == "name");
+
+            Assert.That(ideas.Any(), Is.True);
         }
     }
 }
