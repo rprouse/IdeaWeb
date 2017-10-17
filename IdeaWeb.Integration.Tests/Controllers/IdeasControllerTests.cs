@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using HtmlAgilityPack;
-using IdeaWeb.Integration.Tests.Data;
-using Newtonsoft.Json;
+using IdeaWeb.Integration.Tests.Extensions;
 using NUnit.Framework;
 
 namespace IdeaWeb.Integration.Tests.Controllers
@@ -38,15 +33,13 @@ namespace IdeaWeb.Integration.Tests.Controllers
             // =======================================================================
             // Create the form data to POST back to the server
             // =======================================================================
-            var requestData = new Dictionary<string, string>
+            var request = new FormUrlEncodedContent(new Dictionary<string, string>
             {
                 { "__RequestVerificationToken", antiforgeryToken },
                 { "Name", "New Idea" },
                 { "Description", "This is a new idea" },
                 { "Rating", "1" }
-            };
-
-            var request = new FormUrlEncodedContent(requestData);
+            });
             request.CopyCookiesFromResponse(formResponse);
 
             var response = await _client.PostAsync("Ideas/Create", request);
@@ -56,8 +49,21 @@ namespace IdeaWeb.Integration.Tests.Controllers
             // =======================================================================
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Redirect));
             Assert.That(response.Headers.Location?.ToString(), Is.Not.Null.And.EqualTo("/"));
+        }
 
-            
+        [Test]
+        public async Task CreateRequireseAntiForgeryToken()
+        {
+            var request = new FormUrlEncodedContent(new Dictionary<string, string>
+            {
+                { "Name", "New Idea" },
+                { "Description", "This is a new idea" },
+                { "Rating", "1" }
+            });
+
+            var response = await _client.PostAsync("Ideas/Create", request);
+
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
         }
     }
 }

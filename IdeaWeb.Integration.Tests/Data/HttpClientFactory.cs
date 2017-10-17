@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.PlatformAbstractions;
 
-namespace IdeaWeb.Integration.Tests.Data
+namespace IdeaWeb.Integration.Tests.Extensions
 {
     /// <summary>
     /// Used to create an <see cref="HttpClient"/> for testing and

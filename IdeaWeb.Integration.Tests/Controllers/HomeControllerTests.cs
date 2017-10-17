@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
-using IdeaWeb.Integration.Tests.Data;
+using IdeaWeb.Integration.Tests.Extensions;
 using NUnit.Framework;
 
 namespace IdeaWeb.Integration.Tests.Controllers

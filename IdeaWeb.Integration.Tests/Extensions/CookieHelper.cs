@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Primitives;
 using Microsoft.Net.Http.Headers;
 
-namespace IdeaWeb.Integration.Tests.Data
+namespace IdeaWeb.Integration.Tests.Extensions
 {
-    public static class CookieHelper
+    public static class CookieExtensions
     {
         /// <summary>
         /// Copies the cookies from a <see cref="HttpResponseMessage"/> into a new <see cref="HttpContent"/>

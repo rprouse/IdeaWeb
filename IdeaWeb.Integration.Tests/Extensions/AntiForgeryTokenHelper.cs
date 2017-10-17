@@ -4,9 +4,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 
-namespace IdeaWeb.Integration.Tests.Data
+namespace IdeaWeb.Integration.Tests.Extensions
 {
-    public static class AntiForgeryTokenHelper
+    public static class AntiForgeryTokenExtensions
     {
         /// <summary>
         /// Extracts an anti-forgery token from an HTML form
