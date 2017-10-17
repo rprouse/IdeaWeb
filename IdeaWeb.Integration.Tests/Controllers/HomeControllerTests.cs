@@ -21,11 +21,17 @@ namespace IdeaWeb.Integration.Tests.Controllers
         [OneTimeSetUp]
         public void OneTimeSetup()
         {
+            // ==================================================================
+            // The configuration sets the content root so the Razor views will
+            // be found, sets the environment and specifies a TestStartup to use
+            // ==================================================================
             var webHostBuilder = new WebHostBuilder()
                 .UseContentRoot(CalculateRelativeContentRootPath())
                 .UseEnvironment("Development")
                 .UseStartup<TestStartup>();
 
+            // ================================================================
+            // ================================================================
             var server = new TestServer(webHostBuilder);
 
             _client = server.CreateClient();
@@ -49,10 +55,10 @@ namespace IdeaWeb.Integration.Tests.Controllers
             context.SaveChanges();
         }
 
-        /// <summary>
-        /// With MVC, we need to set the content root to the project being tested
-        /// so that the Razor views can be found
-        /// </summary>
+        // =======================================================================
+        // With MVC, we need to set the content root to the project being tested
+        // so that the Razor views can be found
+        // =======================================================================
         string CalculateRelativeContentRootPath() =>
             Path.Combine(PlatformServices.Default.Application.ApplicationBasePath,
             @"..\..\..\..\IdeaWeb");
@@ -60,11 +66,19 @@ namespace IdeaWeb.Integration.Tests.Controllers
         [Test]
         public async Task HomePageContainsIdeas()
         {
+            // =======================================================================
+            // Using the client created from the TestHost, you can make calls that
+            // use all of the routing and configuration without going through a
+            // browser or the network
+            // =======================================================================
             var response = await _client.GetAsync("/");
             response.EnsureSuccessStatusCode();
 
             var html = await response.Content.ReadAsStringAsync();
 
+            // =======================================================================
+            // You can use the HtmlAgilityPack to parse the HTML for testing
+            // =======================================================================
             var doc = new HtmlDocument();
             doc.LoadHtml(html);
 
