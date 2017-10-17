@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace IdeaWeb.Test.Controllers
 {
     [TestFixture]
-    public class IdeaControllerTests
+    public class IdeasControllerTests
     {
         const int NUM_IDEAS = 10;
 
