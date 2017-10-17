@@ -19,6 +19,10 @@ namespace IdeaWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // ======================================================================================
+            // Moving database configuration out to a protected method allows you to use a different
+            // database configuration for testing
+            // ======================================================================================
             ConfigureDatabase(services);
             services.AddMvc();
         }

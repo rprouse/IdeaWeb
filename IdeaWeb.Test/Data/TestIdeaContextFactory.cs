@@ -16,12 +16,17 @@ namespace IdeaWeb.Test.Data
         /// <returns>A test context backed by an in-memory database</returns>
         public static IdeaContext Create(TestContext testContext, int numIdeas)
         {
+            // ================================================================
+            // Use the in-memory database to make the tests lightning fast.
             // Create unique database names based on the test id
+            // ================================================================
             var options = new DbContextOptionsBuilder<IdeaContext>()
                 .UseInMemoryDatabase(testContext.Test.ID)
                 .Options;
 
-            // Seed the in-memory database
+            // ================================================================
+            // Seed the in-memory database with known data
+            // ================================================================
             using (var context = new IdeaContext(options))
             {
                 for (int i = 1; i <= numIdeas; i++)
@@ -36,7 +41,9 @@ namespace IdeaWeb.Test.Data
                 context.SaveChanges();
             }
 
+            // ================================================================
             // Use a clean copy of the context within the tests
+            // ================================================================
             return new IdeaContext(options);
         }
     }

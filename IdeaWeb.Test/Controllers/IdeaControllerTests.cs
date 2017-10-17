@@ -19,6 +19,9 @@ namespace IdeaWeb.Test.Controllers
         IdeasController _controller;
         IdeaContext _context;
 
+        // ======================================================================================
+        // An IEqualityComparer<T> allows you to test equality of items in collections
+        // ======================================================================================
         class IdeaEqualityComparer : IEqualityComparer<Idea>
         {
             public bool Equals(Idea x, Idea y) =>
@@ -30,6 +33,10 @@ namespace IdeaWeb.Test.Controllers
                 obj?.GetHashCode() ?? 0;
         }
 
+        // ======================================================================================
+        // SetUp happens once before every test and is useful for setting up data all your
+        // tests use
+        // ======================================================================================
         [SetUp]
         public void SetUp()
         {
@@ -37,6 +44,34 @@ namespace IdeaWeb.Test.Controllers
             _controller = new IdeasController(_context);
         }
 
+        // ======================================================================================
+        // The Test attribute indicates a unit test. We are using async code, so the method
+        // must be async Task
+        // ======================================================================================
+        [Test]
+        public async Task DetailsReturnsIdea()
+        {
+            // =========
+            //  ARRANGE
+            // =========
+            var expected = await _context.Ideas.FirstOrDefaultAsync();
+            Assume.That(expected, Is.Not.Null);
+
+            // =========
+            //    ACT
+            // =========
+            ViewResult result = await _controller.Details(expected.Id) as ViewResult;
+
+            // =========
+            //  ASSERT
+            // =========
+            AssertViewResultContainsExpectedId(expected, result);
+        }
+
+        // ======================================================================================
+        // Data driven tests allow you to test easily with multiple values. See also the
+        // TestCaseSource attribute for more complex data driven tests.
+        // ======================================================================================
         [TestCase(null)]
         [TestCase(-1)]
         [TestCase(10000000)]
@@ -46,18 +81,6 @@ namespace IdeaWeb.Test.Controllers
 
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.TypeOf<NotFoundResult>());
-        }
-
-        [Test]
-        public async Task DetailsReturnsIdea()
-        {
-            // Get a valid idea out of the db
-            var expected = await _context.Ideas.FirstOrDefaultAsync();
-            Assume.That(expected, Is.Not.Null);
-
-            ViewResult result = await _controller.Details(expected.Id) as ViewResult;
-
-            AssertViewResultContainsExpectedId(expected, result);
         }
 
         [Test]
