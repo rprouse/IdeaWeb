@@ -17,18 +17,29 @@ namespace IdeaWeb.Test
 
         HomeController _controller;
 
+        // ======================================================================================
+        // SetUp happens once before every test and is useful for setting up data all your
+        // tests use
+        // ======================================================================================
         [SetUp]
         public void SetUp()
         {
+            // Arrange
             IdeaContext context = TestIdeaContextFactory.Create(NUM_IDEAS);
             _controller = new HomeController(context);
         }
 
+        // ======================================================================================
+        // The Test attribute indicates a unit test. We are using async code, so the method
+        // must be async Task
+        // ======================================================================================
         [Test]
         public async Task IndexReturnsListOfIdeas()
         {
+            // Act
             ViewResult result = await _controller.Index() as ViewResult;
 
+            // Assert
             Assert.That(result?.Model, Is.Not.Null);
             Assert.That(result.Model, Has.Count.EqualTo(NUM_IDEAS));
 
