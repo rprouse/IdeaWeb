@@ -56,7 +56,8 @@ namespace IdeaWeb
         /// <param name="services"></param>
         protected virtual void ConfigureDatabase(IServiceCollection services)
         {
-            services.AddDbContext<IdeaContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<IdeaContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
     }
 }

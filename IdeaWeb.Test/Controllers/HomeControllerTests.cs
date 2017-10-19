@@ -20,7 +20,7 @@ namespace IdeaWeb.Test
         [SetUp]
         public void SetUp()
         {
-            IdeaContext context = TestIdeaContextFactory.Create(TestContext.CurrentContext, NUM_IDEAS);
+            IdeaContext context = TestIdeaContextFactory.Create(NUM_IDEAS);
             _controller = new HomeController(context);
         }
 

@@ -40,7 +40,7 @@ namespace IdeaWeb.Test.Controllers
         [SetUp]
         public void SetUp()
         {
-            _context = TestIdeaContextFactory.Create(TestContext.CurrentContext, NUM_IDEAS);
+            _context = TestIdeaContextFactory.Create(NUM_IDEAS);
             _controller = new IdeasController(_context);
         }
 

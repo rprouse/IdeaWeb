@@ -12,16 +12,15 @@ namespace IdeaWeb.Test.Data
         /// database and populates it with test data.
         /// </summary>
         /// <param name="numIdeas">The number of ideas you want to be created in the database</param>
-        /// <param name="testContext">The NUnit TestContext</param>
         /// <returns>A test context backed by an in-memory database</returns>
-        public static IdeaContext Create(TestContext testContext, int numIdeas)
+        public static IdeaContext Create(int numIdeas)
         {
             // ================================================================
             // Use the in-memory database to make the tests lightning fast.
             // Create unique database names based on the test id
             // ================================================================
             var options = new DbContextOptionsBuilder<IdeaContext>()
-                .UseInMemoryDatabase(testContext.Test.ID)
+                .UseInMemoryDatabase(TestContext.CurrentContext.Test.ID)
                 .Options;
 
             // ================================================================
